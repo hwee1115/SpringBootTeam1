@@ -30,7 +30,6 @@ public class QnaController {
    @GetMapping("")
    public Map<String, Object> list(@RequestParam(defaultValue = "1") int pageNo, 
                            @RequestParam(defaultValue = "") String qa_category) {
-      //System.out.println(""+pageNo +" "+qa_category);
       int totalRows = qnaService.getTotalRows(qa_category);
       Pager pager = new Pager(10, 5, totalRows, pageNo);
       List<Qna> list = qnaService.getBoardList(pager, qa_category);

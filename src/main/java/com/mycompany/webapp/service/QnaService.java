@@ -20,9 +20,7 @@ import com.mycompany.webapp.dto.User;
 public class QnaService {
    @Autowired
    private QnaDao qnaDao;
-   private static final Logger logger = LoggerFactory.getLogger(QnaService.class);
-   @Autowired
-   private UsersDao usersDao;
+
 
    public Qna getQna(int qa_id) {
       Qna qna = qnaDao.selectByQa_id(qa_id);
@@ -41,10 +39,10 @@ public class QnaService {
       qnaDao.insert(qna);
    }
    
-   public List<Qna> getBoardList(){
-         List<Qna> list = qnaDao.selectAll();
-         return list;
-   }
+//   public List<Qna> getBoardList(){
+//         List<Qna> list = qnaDao.selectAll();
+//         return list;
+//   }
  
    public List<Qna> getBoardList(Pager pager, String qa_category) {
       Map<String, Object> map = new HashMap<>();
@@ -53,19 +51,11 @@ public class QnaService {
       List<Qna> list = qnaDao.selectByPage(map);
        return list; 
    }
-   public List<Qna> getBoardList(String user_id) {
-      List<Qna> list = qnaDao.selectAllByUserId(user_id);
-      return list;
-   }
 
    public int getTotalRows(String qa_category) {
        int rows = qnaDao.countuser(qa_category);
        return rows;
     }
 
-   public User getUser(String user_id) {
-       User user = usersDao.selectByUserid(user_id);
-       return user;
-    }
    
 }
