@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.webapp.dao.ReviewDao">
+
+
+
+   <insert id="insertReview" parameterType="review">
+      <selectKey keyProperty="review_id" resultType="int"
+         order="BEFORE">
+         select seq_review_rno.nextval from dual
+
+      </selectKey>
+      insert into review
+      (review_id, review_score, review_title,
+      review_content,review_date,p_id,user_id,photo_oname,photo_sname,photo_type,order_id, enabled)
+      values
+      (#{review_id},#{review_score},#{review_title},#{review_content},#{review_date},#{p_id},#{user_id},#{photo_oname},#{photo_sname},#{photo_type},#{order_id},1)
+   </insert>
+
+   <select id="selectOrderIdForReview" resultType="string">
+      select o.order_id
+      from orders o JOIN order_products op on o.order_id= op.order_id
+      where o.user_id=#{user_id} and op.p_id = #{p_id}
+   </select>
+
+   <select id="getCount" parameterType="int" resultType="int">
+      select count(*)
+      from review
+      where p_id=#{p_id}
+   </select>
+
+   <select id="selectByPage" parameterType="pager"
+      resultType="review">
+      select review_id, review_score, review_title, review_content, review_date,
+      user_id, enabled
+      from (
+      select rownum as rnum, review_id, review_score, review_title,
+      review_content, review_date, user_id, enabled
+      from (
+      select review_id, review_score, review_title, review_content, review_date,
+      user_id, enabled
+      from review
+      order by review_id desc
+      )
+      where rownum &lt;= #{endRowNo}
+      )
+      where rnum &gt;= #{startRowNo}
+   </select>
+   
+   <select id="selectByPageByFilter" parameterType="pager"
+      resultType="review">
+      select review_id, review_score, review_title, review_content, review_date,
+      user_id, enabled
+      from (
+      select rownum as rnum, review_id, review_score, review_title,
+      review_content, review_date, user_id, enabled
+      from (
+      select review_id, review_score, review_title, review_content, review_date,
+      user_id, enabled
+      from review
+      where review_score=#{review_score}  
+      order by review_id desc
+      )
+      where rownum &lt;= #{endRowNo}
+      )
+      where rnum &gt;= #{startRowNo}
+      
+      
+   </select>
+   
+   <select id="selectByPageBySearch" parameterType="pager"
+      resultType="review">
+      select review_id, review_score, review_title, review_content, review_date,
+      user_id, enabled
+      from (
+      select rownum as rnum, review_id, review_score, review_title,
+      review_content, review_date, user_id, enabled
+      from (
+      select review_id, review_score, review_title, review_content, review_date,
+      user_id, enabled
+      from review
+      where #{searchType} like '%'||#{searchContent}||'%'
+      order by review_id desc
+      )
+      where rownum &lt;= #{endRowNo}
+      )
+      where rnum &gt;= #{startRowNo}
+      
+      
+   </select>
+
+   <select id="countBySearch" resultType="int">
+      select count(*) from review
+      where #{searchType} like '%'||#{searchContent}||'%'
+   </select>
+   <select id="countByFilter" resultType="int">
+      select count(*) from review
+      where review_score=#{review_score}  
+   </select>
+   <select id="count" resultType="int">
+      select count(*) from review
+   </select>
+
+   <select id="selectByReviewId" parameterType="int"
+      resultType="review">
+      select review_id, review_score, review_title, review_content, review_date,
+      user_id, enabled
+      from review
+      where review_id=#{review_id}
+   </select>
+
+   <update id="update" parameterType="review">
+      update review
+      set review_title=#{review_title}, review_content=#{review_content}, enabled=0
+      where review_id=#{review_id}
+   </update>
+</mapper>

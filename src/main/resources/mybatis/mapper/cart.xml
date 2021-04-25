@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="euc-kr" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.webapp.dao.CartDao">
+
+
+	<insert id="insertCart" parameterType="cart">
+		insert into cart 
+		(user_id, p_id, amount, p_size, cart_date)
+		values
+		(#{user_id}, #{p_id}, #{amount}, #{p_size}, systimestamp)
+	</insert>
+ 
+ 
+	<select id="cartList" parameterType="cart" resultType="cart">
+		select 	
+						c.user_id,
+						c.p_id,
+						c.p_size,
+						c.amount,
+						p.p_name,  
+						p.p_price, 
+						photos.photo_id,
+						photos.photo_oname, 
+						photos.photo_sname, 
+						photos.photo_type, 
+						photos.photo_role
+		from  cart c, products p, photos
+		where	 c.user_id = #{user_id} and
+					 c.p_id = p.p_id and
+					 p.p_id = photos.p_id and
+					 photos.photo_role = 'main'
+
+	</select>
+	
+	 <select id="cartListByPage" parameterType="pager" resultType="cart">
+		select rnum, user_id, p_id, p_size, amount, p_name, p_price, photo_id, photo_oname, photo_sname, photo_type, photo_role
+		from(
+			select rownum as rnum, user_id, p_id, p_size, amount, p_name, p_price, photo_id, photo_oname, photo_sname, photo_type, photo_role
+					 from (
+							 	 select c.user_id, c.p_id, c.p_size, c.amount, p.p_name, p.p_price, photos.photo_id, photos.photo_oname, photos.photo_sname, photos.photo_type, photos.photo_role
+					 from cart c, products p, photos
+					 where	 
+					 c.user_id = #{uid} and
+					 c.p_id = p.p_id and
+					 p.p_id = photos.p_id and
+					 photos.photo_role = 'main'
+					 order by c.cart_date desc
+					     )
+					   where rownum &lt;=#{pager.endRowNo}
+					 )
+					 where rnum &gt;=#{pager.startRowNo}
+				
+	</select> 
+	
+	<!-- list 총 개수 -->
+	<select id="count" parameterType="string" resultType="int">
+      select count(*)
+      from cart
+      where user_id=#{uid}
+  </select> 
+      
+	<!-- 한 가지 상품의 정보만 가져오기 위함 -->
+	<select id="cartListOne" resultType="cart">
+		select 
+					  user_id,
+						p_id,
+						amount				
+		from  cart
+		where	 user_id = #{uid} and
+					 p_id = #{pid} 		
+	</select>
+	
+	<!-- 해당 상품만 장바구니에서 삭제 -->
+	<delete id="deleteCart" parameterType="cart">
+		delete from cart
+		where 	user_id=#{uid} and
+						p_id=#{pid}
+	</delete>
+ 
+ 	<!-- 장바구니 전체 비우기 -->
+	<delete id="deleteCartAll" parameterType="cart">
+	delete from cart
+	where 	user_id=#{user_id}
+	</delete>
+	
+	<!-- 수량 증가 -->
+	<update id="increaseAmount">
+		update cart
+		set	amount = amount+1
+		where user_id=#{uid} and
+						p_id=#{pid}
+	</update>
+	
+	<!-- 수량 감소 --> 
+ 	<update id="decreaseAmount">
+		update cart
+		set	amount = amount-1
+		where user_id=#{uid} and
+						p_id=#{pid}
+	</update>
+
+
+</mapper> 
