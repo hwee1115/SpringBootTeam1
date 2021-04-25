@@ -32,7 +32,7 @@ import com.mycompany.webapp.dto.Photo;
 import com.mycompany.webapp.dto.Product;
 import com.mycompany.webapp.service.ProductService;
 
-@RestController
+@RestController 
 @RequestMapping("/products")
 public class ProductsController {
    @Autowired
