@@ -36,7 +36,7 @@ import com.mycompany.webapp.service.ProductService;
 @RequestMapping("/products")
 public class ProductsController {
    @Autowired
-   private ProductService productService;
+   private ProductService productService; 
    
    @GetMapping("")
    public Map<String, Object> list(@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="등록순") String optionVal) {
