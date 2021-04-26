@@ -36,6 +36,7 @@ public class QnaController {
       Map<String, Object> map = new HashMap<>(); //map객체 만듦
       map.put("pager", pager);
       map.put("qnas", list);
+      map.put("count", totalRows);
       return map; 
    }
    
