@@ -93,7 +93,7 @@
       </if>
    </select>
    
-   <select id="countWait" resultType="int">
+   <select id="countwait" resultType="int">
       select count(*) 
       from qna
       where qa_status = '답변 대기'

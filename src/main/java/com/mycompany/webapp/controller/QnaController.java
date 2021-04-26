@@ -60,6 +60,7 @@ public class QnaController {
    @GetMapping("/readwait")
    public String readWait() {
 	   int qnaWait = qnaService.getWaitRows();
+	   System.out.println(String.valueOf(qnaWait));
 	   return qnaWait + "";
    }
    
