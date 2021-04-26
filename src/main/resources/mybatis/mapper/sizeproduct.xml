@@ -9,4 +9,9 @@
       values
       (#{p_id}, #{p_size})
    </insert>
+    
+   <delete id="deleteSizeByPid" parameterType="int">
+       delete from size_products
+         where p_id=#{p_id}
+   </delete>
 </mapper>

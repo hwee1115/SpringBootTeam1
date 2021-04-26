@@ -142,7 +142,14 @@
 	  <if test="keyword != null and status !=null">
 	  where order_name like '%' || #{keyword} || '%' and delivery_status = #{status}
 	  </if>
-  	</select> 
+	  </select> 
+	  
+	  <select id="readycount" resultType="int">
+	  select count(*)
+	  from orders
+	  where delivery_status ='배송준비중'
+	  </select>
+ 
   	
 
 	
