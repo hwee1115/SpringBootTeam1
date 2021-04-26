@@ -58,9 +58,9 @@ public class QnaController {
    }
    
    @GetMapping("/readwait")
-   public int readWait() {
+   public String readWait() {
 	   int qnaWait = qnaService.getWaitRows();
-	   return qnaWait;
+	   return qnaWait + "";
    }
    
 }
