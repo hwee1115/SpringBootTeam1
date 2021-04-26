@@ -21,7 +21,7 @@ import com.mycompany.webapp.dto.Qna;
 import com.mycompany.webapp.service.QnaService;
 
 @RestController
-@RequestMapping("/askList")
+@RequestMapping("/qna")
 public class QnaController {
    
    @Autowired
@@ -30,12 +30,13 @@ public class QnaController {
    @GetMapping("")
    public Map<String, Object> list(@RequestParam(defaultValue = "1") int pageNo, 
                            @RequestParam(defaultValue = "") String qa_category) {
-      int totalRows = qnaService.getTotalRows(qa_category);
+      int totalRows = qnaService.getTotalRows(qa_category);     
       Pager pager = new Pager(10, 5, totalRows, pageNo);
       List<Qna> list = qnaService.getBoardList(pager, qa_category);
       Map<String, Object> map = new HashMap<>(); //map객체 만듦
       map.put("pager", pager);
       map.put("qnas", list);
+      map.put("count", totalRows);
       return map; 
    }
    
@@ -54,6 +55,13 @@ public class QnaController {
    @DeleteMapping("/{qa_id}")
    public void delete(@PathVariable int qa_id) {
       qnaService.deleteQna(qa_id);
+   }
+   
+   @GetMapping("/readwait")
+   public String readWait() {
+	   int qnaWait = qnaService.getWaitRows();
+	   System.out.println(String.valueOf(qnaWait));
+	   return qnaWait + "";
    }
    
 }

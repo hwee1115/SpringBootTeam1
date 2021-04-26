@@ -36,15 +36,16 @@ public class OrderController {
 	private OrdersService  ordersService;
 	
 	@GetMapping("")
-	public Map<String,Object> list(@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="") String keyword){
+	public Map<String,Object> list(@RequestParam(defaultValue="1") int pageNo, String keyword, String searchStatus){
 		logger.info(keyword);
-		int totalRows = ordersService.getTotalRows(keyword);
+		logger.info(searchStatus);
+		int totalRows = ordersService.getTotalRows(keyword,searchStatus);
 		Pager pager = new Pager(10,5,totalRows,pageNo);
-		List<Orders> list = ordersService.getOrdersList(pager,keyword);
+		List<Orders> list = ordersService.getOrdersList(pager,keyword,searchStatus);
 		Map<String,Object> map =new HashMap<>();
 		map.put("pager", pager);
 		map.put("orders", list);
-
+		map.put("count", totalRows);
 		return map;
 	}
 	
@@ -59,6 +60,12 @@ public class OrderController {
 		   map.put("orderProduct", list);
 		   return map;
 	   }
+	 
+	 @GetMapping("/ordercount")
+	 public String getcount() {
+		 int rcount = ordersService.getReadyCount();
+		 return rcount + "";
+	 }
 	 
 	
 	

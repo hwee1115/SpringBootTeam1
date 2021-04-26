@@ -262,4 +262,12 @@ public class ProductService {
    }
    
  
+
+
+public int getCountSort(String countSort) {
+	int count = productDao.countSort(countSort);
+	return count;
+}
+   
+
 }

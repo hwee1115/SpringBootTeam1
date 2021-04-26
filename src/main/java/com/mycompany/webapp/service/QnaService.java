@@ -56,6 +56,11 @@ public class QnaService {
        int rows = qnaDao.countuser(qa_category);
        return rows;
     }
+   
+   public int getWaitRows() {
+	   int waitrows = qnaDao.countwait();
+	   return waitrows;
+   }
 
    
 }

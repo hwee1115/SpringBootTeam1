@@ -25,8 +25,10 @@ private int p_rate;
    private MultipartFile p_detailphoto;
    private int[] photo_ids;
    private String[] photo_names;
-   
+
+private String[] p_size;
  
+
 private List<Photo> photolist;
    private List<Review> reviewlist;
    private List<SizeProduct> sizelist;
@@ -34,16 +36,29 @@ private List<Photo> photolist;
   
 
 
+  
+   
+   
+   
    @Override
 public String toString() {
-   return "Product [p_id=" + p_id + ", p_name=" + p_name + ", p_rate=" + p_rate + ", p_price=" + p_price + ", p_stock="
-         + p_stock + ", p_salescount=" + p_salescount + ", p_category_name=" + p_category_name + ", p_upload_date="
-         + p_upload_date + ", p_description=" + p_description + ", p_mainphoto=" + p_mainphoto + ", p_subphotos="
-         + Arrays.toString(p_subphotos) + ", p_detailphoto=" + p_detailphoto + ", photo_ids="
-         + Arrays.toString(photo_ids) + ", photolist=" + photolist + ", reviewlist=" + reviewlist + ", sizelist="
-         + sizelist + "]";
+	return "Product [p_id=" + p_id + ", p_name=" + p_name + ", p_rate=" + p_rate + ", p_price=" + p_price + ", p_stock="
+			+ p_stock + ", p_salescount=" + p_salescount + ", p_category_name=" + p_category_name + ", p_upload_date="
+			+ p_upload_date + ", p_description=" + p_description + ", p_mainphoto=" + p_mainphoto + ", p_subphotos="
+			+ Arrays.toString(p_subphotos) + ", p_detailphoto=" + p_detailphoto + ", photo_ids="
+			+ Arrays.toString(photo_ids) + ", photo_names=" + Arrays.toString(photo_names) + ", p_size="
+			+ Arrays.toString(p_size) + ", photolist=" + photolist + ", reviewlist=" + reviewlist + ", sizelist="
+			+ sizelist + "]";
 }
 
+public String[] getP_size() {
+		return p_size;
+	}
+
+	public void setP_size(String[] p_size) {
+		this.p_size = p_size;
+	}
+   
    public String[] getPhoto_names() {
       return photo_names;
    }

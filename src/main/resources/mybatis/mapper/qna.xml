@@ -26,8 +26,6 @@
       from (
       select qa_id, qa_category, qa_content, qa_status, qa_date, qa_cn, user_id
       from QNA
-      <if test="qa_category == null ">
-      </if>
       <if test="qa_category == '배송 문의' or qa_category == '주문/결제 문의' or qa_category == '상품 문의'">
          where qa_category = #{qa_category}
       </if>
@@ -85,15 +83,20 @@
    </select>
 
    <select id="countuser" resultType="int">
-      select count(*) from qna
-       <if test="qa_category == null ">
-      </if> 
+      select count(*)
+      from qna
       <if test="qa_category == '배송 문의' or qa_category == '주문/결제 문의' or qa_category == '상품 문의'">
          where qa_category = #{qa_category}
       </if>
       <if test="qa_category == '답변 대기' or qa_category == '답변 완료' ">
          where qa_status = #{qa_category}
       </if>
+   </select>
+   
+   <select id="countwait" resultType="int">
+      select count(*) 
+      from qna
+      where qa_status = '답변 대기'
    </select>
 
 </mapper>
