@@ -15,7 +15,8 @@ public interface QnaDao {
    public Qna selectByQa_id(int qa_id);
    public int update(Qna qna);
    public int deleteByQa_id(int qa_id);
-   public int countuser(String qa_category);
    public List<Qna> selectByPage(Map<String, Object> map);
+   public int countuser(String qa_category);
+   public int countwait();
 
 }

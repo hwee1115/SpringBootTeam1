@@ -30,7 +30,7 @@ public class QnaController {
    @GetMapping("")
    public Map<String, Object> list(@RequestParam(defaultValue = "1") int pageNo, 
                            @RequestParam(defaultValue = "") String qa_category) {
-      int totalRows = qnaService.getTotalRows(qa_category);
+      int totalRows = qnaService.getTotalRows(qa_category);     
       Pager pager = new Pager(10, 5, totalRows, pageNo);
       List<Qna> list = qnaService.getBoardList(pager, qa_category);
       Map<String, Object> map = new HashMap<>(); //map객체 만듦
@@ -55,6 +55,12 @@ public class QnaController {
    @DeleteMapping("/{qa_id}")
    public void delete(@PathVariable int qa_id) {
       qnaService.deleteQna(qa_id);
+   }
+   
+   @GetMapping("/readwait")
+   public int readWait() {
+	   int qnaWait = qnaService.getWaitRows();
+	   return qnaWait;
    }
    
 }
