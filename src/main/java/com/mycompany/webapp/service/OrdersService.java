@@ -59,6 +59,11 @@ public class OrdersService {
 	     int rows = ordersDao.count(keyword,status);
 	     return rows;
 	   }
+	
+	public int getReadyCount() {
+		int count = ordersDao.readycount();
+		return count;
+	}
 
 	
 	
