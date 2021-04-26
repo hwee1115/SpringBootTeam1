@@ -14,7 +14,26 @@ public class Pager {
 	private int startRowIndex;	//페이지의 시작 행 인덱스(0, ..., n-1) for mysql
 	private int endRowNo;		//페이지의 마지막 행 번호
 	private int endRowIndex;	//페이지의 마지막 행 인덱스
-	private int review_score;
+	private int review_score;	
+	
+	private String searchType;
+	private String searchContent;
+	
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getSearchContent() {
+		return searchContent;
+	}
+
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+	}
 	
 	public int getReview_score() {
 		return review_score;

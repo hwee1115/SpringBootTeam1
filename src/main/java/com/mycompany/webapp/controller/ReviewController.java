@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.webapp.dto.Pager;
 import com.mycompany.webapp.dto.Review;
-import com.mycompany.webapp.service.ProductService;
+import com.mycompany.webapp.service.ReviewsService;
 
 @RestController
 @RequestMapping("/reviews")
@@ -25,27 +25,29 @@ public class ReviewController {
    private static final Logger logger = LoggerFactory.getLogger(ReviewController.class);
 
    @Autowired
-   private ProductService productService;
+   private ReviewsService reviewsService;
 
    @GetMapping("")
    public Map<String, Object> list(@RequestParam(defaultValue = "1") int pageNo) {
-      int totalRows = productService.getCount();
+      int totalRows = reviewsService.getCount();
       Pager pager = new Pager(10, 5, totalRows, pageNo);
-      List<Review> list = productService.getList(pager);
+      List<Review> list = reviewsService.getList(pager);
       Map<String, Object> map = new HashMap<>();
       map.put("pager", pager);
       map.put("reviews", list);
       return map;
    }
    
+   
    @GetMapping("/filter")
    public Map<String, Object> listByFilter(@RequestParam(defaultValue = "1") int pageNo, int review_score) {
       logger.info("체크1:"+review_score);
-      int totalRows = productService.getCountByFilter(review_score);
+      
+      int totalRows = reviewsService.getCountByFilter(review_score);
       logger.info("체크2:"+totalRows);
 
       Pager pager = new Pager(10, 5, totalRows, pageNo);
-      List<Review> listByFilter = productService.getListByFilter(pager, review_score);
+      List<Review> listByFilter = reviewsService.getListByFilter(pager, review_score);
       logger.info("체크3:"+listByFilter);
 
       Map<String, Object> map = new HashMap<>();
@@ -58,11 +60,11 @@ public class ReviewController {
    public Map<String, Object> listBySearch(@RequestParam(defaultValue = "1") int pageNo, String searchType, String searchContent) {
       logger.info("체크1:"+searchType);
       logger.info("체크1:"+searchContent);
-      int totalRows = productService.getCountBySearch(searchType, searchContent);
+      int totalRows = reviewsService.getCountBySearch(searchType, searchContent);
       logger.info("체크2:"+totalRows);
 
       Pager pager = new Pager(10, 5, totalRows, pageNo);
-      List<Review> listBySearch = productService.getListBySearch(pager, searchType, searchContent);
+      List<Review> listBySearch = reviewsService.getListBySearch(pager, searchType, searchContent);
       logger.info("체크3:"+listBySearch);
 
       Map<String, Object> map = new HashMap<>();
@@ -73,14 +75,14 @@ public class ReviewController {
 
    @GetMapping("/{review_id}")
    public Review read(@PathVariable int review_id) {
-      Review review = productService.getReview(review_id);
+      Review review = reviewsService.getReview(review_id);
       return review;
    }
 
    @PutMapping("")
    // @RequestBody : 요청 http 본문에 json이 포함되어 있을 경우 raw type:json
    public Review update(@RequestBody Review review) {
-      productService.update(review);
+	   reviewsService.update(review);
       return review;
    }
 }

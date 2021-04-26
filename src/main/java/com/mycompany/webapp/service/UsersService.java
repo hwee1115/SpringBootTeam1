@@ -53,6 +53,10 @@ public class UsersService {
       return usersDao.getUser();
    }
    
+   public int getTotalCount() {
+      return usersDao.getUser();
+   }
+   
    public List<User> getList(Pager pager) {
       return usersDao.userList(pager);
    }

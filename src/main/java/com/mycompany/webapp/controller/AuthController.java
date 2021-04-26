@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.webapp.dto.Pager;
+import com.mycompany.webapp.dto.Review;
 import com.mycompany.webapp.dto.User;
 import com.mycompany.webapp.security.JwtUtil;
 import com.mycompany.webapp.service.UsersService;
@@ -83,5 +84,12 @@ public class AuthController {
       usersService.delete(user_id);
    }
    
-
+   @GetMapping("/usercount")
+   public String getcount() {
+	   int ucount = usersService.getTotalCount();
+	   return ucount + "";
+   }
+   
+  
+   
 }
