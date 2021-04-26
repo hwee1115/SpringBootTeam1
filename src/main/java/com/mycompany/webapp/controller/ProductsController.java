@@ -32,11 +32,11 @@ import com.mycompany.webapp.dto.Photo;
 import com.mycompany.webapp.dto.Product;
 import com.mycompany.webapp.service.ProductService;
 
-@RestController
+@RestController 
 @RequestMapping("/products")
 public class ProductsController {
    @Autowired
-   private ProductService productService;
+   private ProductService productService; 
    
    @GetMapping("")
    public Map<String, Object> list(@RequestParam(defaultValue="1") int pageNo,@RequestParam(defaultValue="등록순") String optionVal) {
