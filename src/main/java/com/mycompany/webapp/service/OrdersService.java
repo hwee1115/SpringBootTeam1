@@ -49,14 +49,14 @@ public class OrdersService {
 		return list;
 	}
 	
-	public List<Orders> getOrdersList(Pager pager,String keyword){ 
-		List<Orders> list = ordersDao.orderListByPage(pager, keyword);
+	public List<Orders> getOrdersList(Pager pager,String keyword,String status){ 
+		List<Orders> list = ordersDao.orderListByPage(pager, keyword,status);
 		
 		return list;
 	}
 	
-	public int getTotalRows(String keyword) {
-	     int rows = ordersDao.count(keyword);
+	public int getTotalRows(String keyword,String status) {
+	     int rows = ordersDao.count(keyword,status);
 	     return rows;
 	   }
 
