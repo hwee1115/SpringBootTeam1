@@ -36,7 +36,18 @@ public class ProductService {
    //Create
    // 상품 생성
    public void createProduct(Product product) {
+	   //상품 생성
       productDao.insert(product);
+      //사이즈 생성
+      for(int i=0; i< product.getP_size().length; i++) {
+    	  if(!product.getP_size()[i].equals("false")) {
+    		  SizeProduct size = new SizeProduct();
+    		  size.setP_id(productDao.selectcurrent());
+    		  size.setP_size(product.getP_size()[i]);
+    		  sizeProductDao.insertSize(size);
+    	  }
+      }
+     
    }
 
    //리뷰 저장하기
@@ -173,8 +184,23 @@ public class ProductService {
    //Update
    //상품 수정하기
    public void UpdateProduct(Product product) {
+	   //상품 업데이트
       productDao.update(product);
+      //사이즈 업데이트
+      //일단 다지우고
+      sizeProductDao.deleteSizeByPid(product.getP_id());
+      //다시 생성
+      for(int i=0; i< product.getP_size().length; i++) {
+    	  if(!product.getP_size()[i].equals("false")) {
+    		  System.out.println(product.getP_size()[i]);
+    		  SizeProduct size = new SizeProduct();
+    		  size.setP_id(product.getP_id());
+    		  size.setP_size(product.getP_size()[i]);
+    		  sizeProductDao.insertSize(size);
+    	  }
+      }
    }
+   
    //구매된 상품 업데이트(구매횟수 추가 + 재고수량 감소)
    public void UpdateSaledProduct(int pid) {
       productDao.updateSalescountAndStock(pid);
@@ -211,7 +237,8 @@ public class ProductService {
          
          }
       photosDao.deleteByPid(pid);
-      
+      //사이즈 삭제
+      sizeProductDao.deleteSizeByPid(pid);
       
       // 상품 삭제
       productDao.updateEnabledBypid(pid);
@@ -297,6 +324,11 @@ public class ProductService {
    public int getCountBySearch(String searchType, String searchContent) {
       return reviewDao.countBySearch(searchType, searchContent);
    }
+
+public int getCountSort(String countSort) {
+	int count = productDao.countSort(countSort);
+	return count;
+}
    
 
 }

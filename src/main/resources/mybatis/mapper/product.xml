@@ -108,6 +108,17 @@
          delete from products
          where p_id=#{p_id}
          </delete>
+         
+         <select id="countSort" resultType="int">
+         select count(*) from products
+         <if test="countSort == '전체'">
+         where p_enabled=1
+         </if>
+         <if test="countSort == '재고부족'">
+         where p_enabled=1 and p_stock=0
+         </if>
+         
+         </select>
    <!-- 상품 insert / seq로 상품 id-->
    <insert id="insert" parameterType="product">
    <selectKey keyProperty="p_id" resultType="int" order="BEFORE">
@@ -155,7 +166,7 @@
    </select>
    
    <select id="count" resultType="int">
-      select count(*) from products
+      select count(*) from products where p_enabled=1
    </select>
    
     <select id="selectRecommandAllByPager" parameterType="pager" resultType="product" resultMap="productMap">

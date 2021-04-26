@@ -49,7 +49,12 @@ public class ProductsController {
       map.put("pager", pager);
       return map;
    }   
-  
+   @GetMapping("CountSort/{countSort}")
+   public String GetCountSort(@PathVariable String countSort) {
+	   int count = productService.getCountSort(countSort);
+	   
+      return count+"";
+   }   
    @Autowired
    ResourceController resourceController;
    @Autowired

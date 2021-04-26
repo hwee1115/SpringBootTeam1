@@ -10,5 +10,5 @@ import com.mycompany.webapp.dto.SizeProduct;
 public interface SizeProductDao {
 
 	int insertSize(SizeProduct sizeproduct);
-
+	int deleteSizeByPid(int p_id);
 }
