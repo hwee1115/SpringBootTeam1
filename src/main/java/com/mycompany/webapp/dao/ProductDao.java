@@ -61,6 +61,8 @@ public interface ProductDao {
 int updateRate(@Param("p_id")int p_id,@Param("p_rate")int p_rate);
 
 int selectcurrent();
+
+int countSort(String countSort);
    
 
 }
