@@ -108,10 +108,16 @@
 		                  	o.delivery_status,
 		                  	o.total_amount
 					from orders o 
-					<if test="keyword == null">
+					<if test="keyword == null and status==null">
 					</if>
-					<if test="keyword !=null">
+					<if test="keyword !=null and status ==null">
 					where order_name like '%' || #{keyword} || '%'
+					</if>
+					<if test="keyword == null and status !=null">
+					where delivery_status = #{status}
+					</if>
+					<if test="keyword != null and status !=null">
+					where order_name like '%' || #{keyword} || '%' and delivery_status = #{status}
 					</if>
                 	order by o.order_date desc
 				)
@@ -125,11 +131,17 @@
 	<select id="count" resultType="int">
       select count(*)
       from orders
-      <if test="keyword == null">
-	 </if>
-	 <if test="keyword !=null">
-		where order_name like '%' || #{keyword} || '%'
-	 </if>
+      <if test="keyword == null and status==null">
+	  </if>
+	  <if test="keyword !=null and status ==null">
+	  where order_name like '%' || #{keyword} || '%'
+	  </if>
+	  <if test="keyword == null and status !=null">
+	  where delivery_status = #{status}
+	  </if>
+	  <if test="keyword != null and status !=null">
+	  where order_name like '%' || #{keyword} || '%' and delivery_status = #{status}
+	  </if>
   	</select> 
   	
 
