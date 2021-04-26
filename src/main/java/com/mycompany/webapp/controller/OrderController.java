@@ -61,6 +61,11 @@ public class OrderController {
 		   return map;
 	   }
 	 
+	 @GetMapping("/ordercount")
+	 public String getcount() {
+		 int rcount = ordersService.getReadyCount();
+		 return rcount + "";
+	 }
 	 
 	
 	
