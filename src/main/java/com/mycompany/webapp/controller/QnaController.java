@@ -21,7 +21,7 @@ import com.mycompany.webapp.dto.Qna;
 import com.mycompany.webapp.service.QnaService;
 
 @RestController
-@RequestMapping("/askList")
+@RequestMapping("/qna")
 public class QnaController {
    
    @Autowired

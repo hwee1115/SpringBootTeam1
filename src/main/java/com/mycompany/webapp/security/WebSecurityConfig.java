@@ -57,13 +57,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          // 요청 경로 권한 설정
          //.antMatchers(HttpMethod.POST, "/boards").hasAuthority("ROLE_USER")
          
-         .antMatchers(HttpMethod.POST, "/boards").hasAnyRole("USER")
-         .antMatchers(HttpMethod.PUT, "/boards").hasAnyRole("USER")
-         .antMatchers(HttpMethod.DELETE, "/boards/*").hasAnyRole("USER")
-   
          .antMatchers(HttpMethod.POST, "/orders").hasAnyRole("ADMIN")
          .antMatchers(HttpMethod.PUT, "/orders").hasAnyRole("ADMIN")
          .antMatchers(HttpMethod.DELETE, "/orders/*").hasAnyRole("ADMIN")
+         
+         .antMatchers(HttpMethod.POST, "/products").hasAnyRole("ADMIN")
+         .antMatchers(HttpMethod.PUT, "/products").hasAnyRole("ADMIN")
+         .antMatchers(HttpMethod.DELETE, "/products/*").hasAnyRole("ADMIN")
+         
+         .antMatchers(HttpMethod.POST, "/auth").hasAnyRole("ADMIN")
+         .antMatchers(HttpMethod.PUT, "/auth").hasAnyRole("ADMIN")
+         .antMatchers(HttpMethod.DELETE, "/auth/*").hasAnyRole("ADMIN")
+         
+         .antMatchers(HttpMethod.POST, "/reviews").hasAnyRole("ADMIN")
+         .antMatchers(HttpMethod.PUT, "/reviews").hasAnyRole("ADMIN")
+         .antMatchers(HttpMethod.DELETE, "/reviews/*").hasAnyRole("ADMIN")
+         
+         .antMatchers(HttpMethod.POST, "/qna").hasAnyRole("ADMIN")
+         .antMatchers(HttpMethod.PUT, "/qna").hasAnyRole("ADMIN")
+         .antMatchers(HttpMethod.DELETE, "/qna/*").hasAnyRole("ADMIN")
 
          //.antMatchers("/boards/**").hasAnyRole("USER") // 이거 요청하려면 USER 권한이 있어야합니다.
          
