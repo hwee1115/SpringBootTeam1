@@ -53,12 +53,11 @@ public class AuthController {
       return map;
    }
 
-   @GetMapping("")
-   public Map<String, Object> list(@RequestParam(defaultValue = "1") int pageNo) {
-      int totalRows = usersService.getCount();
-      logger.info("getcount : " + totalRows);
-      Pager pager = new Pager(5, 5, totalRows, pageNo);
-      List<User> list = usersService.getList(pager);
+   @GetMapping("/keywordlist")
+   public Map<String, Object> list(@RequestParam(defaultValue = "1") int pageNo, String keyword) {
+       int totalRows = usersService.getTotalRows(keyword);
+      	Pager pager = new Pager(5, 5, totalRows, pageNo);
+      	List<User> list = usersService.getList(pager, keyword);
       Map<String, Object> map = new HashMap<>();
       map.put("users", list);
       map.put("pager", pager);
@@ -77,11 +76,5 @@ public class AuthController {
       logger.info("" + user);
       usersService.update(user);
    }
-
-   @DeleteMapping("/{user_id}")
-   public void delete(@PathVariable String user_id) {
-      usersService.delete(user_id);
-   }
-   
 
 }

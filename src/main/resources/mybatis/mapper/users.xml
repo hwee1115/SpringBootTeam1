@@ -55,26 +55,38 @@
       select count (*) from users
    </select>
    
-   <select id="userList" parameterType="pager" resultType="user">
+   <select id="userList"  resultType="user">
       select rnum, user_id, user_name, user_phone, enabled 
       from (
           select rownum as rnum, user_id, user_name, user_phone, enabled 
           from (
              select user_id, user_name, user_phone, enabled 
              from users
-          
+          		<if test="keyword == null">
+				</if>
+				<if test="keyword !=null">
+				where user_name like '%' || #{keyword} || '%'
+				</if>
+                order by user_name desc
           )
-          where rownum &lt;= #{endRowNo}
+          where rownum &lt;= #{pager.endRowNo}
       ) 
-      where rnum &gt;= #{startRowNo}
+      where rnum &gt;= #{pager.startRowNo}
    </select>
+   
+   <select id="count" resultType="int">
+      select count(*)
+      from users
+      <if test="keyword == null">
+		</if>
+	<if test="keyword !=null">
+	where user_name like '%' || #{keyword} || '%'
+	</if>
+      
+    </select>
    
    <update id="update" parameterType="user">
       update users set user_id=#{user_id}, user_name=#{user_name}, user_phone=#{user_phone}, dog_size=#{dog_size} where user_id=#{user_id}
    </update>
-   
-   <delete id="deleteByUser_id" parameterType="string">
-      delete from users where user_id=#{user_id}
-   </delete>
    
 </mapper>

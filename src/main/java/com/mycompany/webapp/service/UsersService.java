@@ -2,17 +2,23 @@ package com.mycompany.webapp.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.webapp.controller.AuthController;
 import com.mycompany.webapp.dao.UsersDao;
 import com.mycompany.webapp.dto.Pager;
 import com.mycompany.webapp.dto.User;
+
 
 @Service
 public class UsersService {
    @Autowired
    private UsersDao usersDao;
+   
+   private static final Logger logger = LoggerFactory.getLogger(UsersService.class);
 
    public void join(User user) {
       usersDao.insert(user);
@@ -49,20 +55,23 @@ public class UsersService {
       usersDao.updatePhoneById(user_phone, user_id);
    }
    
-   public int getCount() {
-      return usersDao.getUser();
+   public int getTotalRows(String keyword) {
+	   logger.info("keyword" + keyword);
+	   int rows = usersDao.count(keyword);
+	   logger.info("keywordrows : " + rows);
+	   return rows;
    }
    
-   public List<User> getList(Pager pager) {
-      return usersDao.userList(pager);
+   public List<User> getList(Pager pager, String keyword) {
+	   logger.info("keywordget : " + keyword);
+	   logger.info("pagerpager" + pager.getTotalRows());
+	   List<User> list = usersDao.userList(pager, keyword);
+	
+      return list;
    }
 
    public int update(User user) {
       return usersDao.update(user);
-   }
-   
-   public int delete(String user_id) {
-       return usersDao.deleteByUser_id(user_id);
    }
    
 }
