@@ -2,8 +2,6 @@ package com.mycompany.webapp.dto;
 
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class Review {
 	private int review_id;
 	private int review_score;
@@ -20,7 +18,22 @@ public class Review {
 	private String photo_sname;
 	private String photo_type;
 	
-	
+
+	private String searchType;
+	private String searchContent;
+
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getSearchContent() {
+		return searchContent;
+	}
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+	}
 	public String getUser_name() {
 		return user_name;
 	}

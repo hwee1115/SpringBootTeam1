@@ -1,41 +1,7 @@
 <?xml version="1.0" encoding="euc-kr" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mycompany.webapp.dao.OrdersDao">
-   <insert id="ordersInsert" parameterType="orders">
-      insert into orders(   order_id,
-                     order_date,
-                     order_request,
-                     total_price,
-                     payment,
-                     delivery_address,
-                     delivery_address_detail,
-                     zip,
-                     user_id,
-                     order_name,
-                     order_phone,
-                     order_sprice,
-                     p_id,
-                     delivery_status,
-                     total_amount
-      )
-      values(   #{order_id},
-            systimestamp,
-            #{order_request},
-            #{total_price},
-            #{payment},
-            #{delivery_address},
-            #{delivery_address_detail},
-            #{zip},
-            #{user_id},
-            #{order_name},
-            #{order_phone},
-            #{order_sprice},
-            #{p_id},
-            '배송준비중',
-            #{total_amount}
-   )
-   </insert>
-   
+ 
  	<update id="updateStatus" parameterType="String">
 		update orders 
 		set delivery_status=#{delivery_status}
@@ -63,28 +29,7 @@
       where order_id = #{order_id}      
    </select>
    
-      <select id="ordersList" parameterType="orders" resultType="orders">
-      select    
-                  o.order_id,
-                  o.order_date,
-                  o.delivery_status,
-                  o.p_id,
-                  o.total_amount,
-                  p.p_name,  
-                  p.p_price, 
-                  photos.photo_id,
-                  photos.photo_oname, 
-                  photos.photo_sname, 
-                  photos.photo_type, 
-                  photos.photo_role
-      from  orders o, products p, photos
-      where    o.user_id = #{user_id} and
-                o.p_id = p.p_id and
-                p.p_id = photos.p_id and
-                photos.photo_role = 'main'
-                order by o.order_date desc
-
-   </select>
+   
    <!-- 주문내역 리스트 가져오기 -->
    	 <select id="orderListByPage" parameterType="pager" resultType="orders">
 		select rnum, user_id,order_name,total_price, order_id, order_date, delivery_status, total_amount
@@ -149,6 +94,10 @@
 	  from orders
 	  where delivery_status ='배송준비중'
 	  </select>
+	  
+	  <delete id="deleteByoid" parameterType="String">
+      delete from orders where order_id=#{order_id}
+   </delete>
  
   	
 

@@ -55,7 +55,7 @@
       select count (*) from users
    </select>
    
-   <select id="userList"  resultType="user">
+   <select id="userList" parameterType="pager" resultType="user">
       select rnum, user_id, user_name, user_phone, enabled 
       from (
           select rownum as rnum, user_id, user_name, user_phone, enabled 
