@@ -29,11 +29,11 @@ public interface UsersDao {
    
    public int getUser();
    
-   public List<User>userList(Pager pager);
+   public List<User>userList(@Param("pager")Pager pager, @Param("keyword")String keyword);
 
    public int update(User user);
 
-   public int deleteByUser_id(String user_id);
+   public int count(String keyword);
    
 
    

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.webapp.dto.Pager;
-import com.mycompany.webapp.dto.Review;
 import com.mycompany.webapp.dto.User;
 import com.mycompany.webapp.security.JwtUtil;
 import com.mycompany.webapp.service.UsersService;
@@ -54,12 +52,11 @@ public class AuthController {
       return map;
    }
 
-   @GetMapping("")
-   public Map<String, Object> list(@RequestParam(defaultValue = "1") int pageNo) {
-      int totalRows = usersService.getCount();
-      logger.info("getcount : " + totalRows);
-      Pager pager = new Pager(5, 5, totalRows, pageNo);
-      List<User> list = usersService.getList(pager);
+   @GetMapping("/keywordlist")
+   public Map<String, Object> list(@RequestParam(defaultValue = "1") int pageNo, String keyword) {
+       int totalRows = usersService.getTotalRows(keyword);
+      	Pager pager = new Pager(5, 5, totalRows, pageNo);
+      	List<User> list = usersService.getList(pager, keyword);
       Map<String, Object> map = new HashMap<>();
       map.put("users", list);
       map.put("pager", pager);
@@ -79,17 +76,11 @@ public class AuthController {
       usersService.update(user);
    }
 
-   @DeleteMapping("/{user_id}")
-   public void delete(@PathVariable String user_id) {
-      usersService.delete(user_id);
-   }
    
    @GetMapping("/usercount")
    public String getcount() {
 	   int ucount = usersService.getTotalCount();
 	   return ucount + "";
    }
-   
-  
    
 }
