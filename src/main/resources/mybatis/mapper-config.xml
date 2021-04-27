@@ -6,7 +6,6 @@
 		<typeAlias type="com.mycompany.webapp.dto.SizeProduct" alias="size"/>	
 		<typeAlias type="com.mycompany.webapp.dto.Orders" alias="orders"/>
 		<typeAlias type="com.mycompany.webapp.dto.User" alias="user"/>
-		<typeAlias type="com.mycompany.webapp.dto.CartItem" alias="cart"/>
 		<typeAlias type="com.mycompany.webapp.dto.OrderProduct" alias="orderproduct"/>
       	<typeAlias type="com.mycompany.webapp.dto.Photo" alias="photo"/>
       	<typeAlias type="com.mycompany.webapp.dto.Review" alias="review"/>

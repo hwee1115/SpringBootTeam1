@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -74,5 +75,12 @@ public class OrderController {
 		ordersService.deleteOrder(orders);
 		return orders;
 	}
+	
+	 @DeleteMapping("/{order_id}")
+	   public void delete(@PathVariable String order_id) {
+		 logger.info(order_id);
+		 ordersService.deleteOrderProduct(order_id);
+		 ordersService.delete(order_id);
+	   }
 }
 
