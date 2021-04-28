@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="euc-kr" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mycompany.webapp.dao.ProductDao">
-   <!-- ResultMap -->
+   <!-- ResultMap --> 
    <resultMap type="product" id="productMap">
       <id property="p_id" column="p_id"/>
       <result property="p_name" column="p_name"/>

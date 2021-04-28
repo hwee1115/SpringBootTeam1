@@ -37,7 +37,7 @@ public class ProductService {
    // 상품 생성
    public void createProduct(Product product) {
 	   //상품 생성
-      productDao.insert(product);
+      productDao.insert(product); 
       //사이즈 생성
       for(int i=0; i< product.getP_size().length; i++) {
     	  if(!product.getP_size()[i].equals("false")) {
